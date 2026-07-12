@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+postgres/data/
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+airflow/logs/
+airflow/data/
+.DS_Store
