@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_standings
+    description: "Datos de standings del Mundial, limpiados desde la tabla cruda."
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: pais
+        tests:
+          - not_null
+      - name: puntos
+        tests:
+          - not_null
+      - name: mundial
+        tests:
+          - not_null

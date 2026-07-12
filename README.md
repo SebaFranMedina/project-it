@@ -48,6 +48,14 @@ project-it/
    ```bash
    docker exec -it postgres_container psql -U db_user -d dbstgres -c "SELECT * FROM standings;"
    ```
+> **Nota sobre `--build`:** solo hace falta cuando cambiaste código dentro de
+> `src/` o `dbt/` (Dockerfile, requirements.txt, o el script `.py`) — esos
+> archivos se copian dentro de la imagen al construirla, no se leen en vivo.
+> En la Semana 1 (cuando el proyecto era solo Postgres, sin ningún `build:`
+> propio) nunca hacía falta `--build`, porque `db` usa `image:` (se descarga
+> tal cual, nunca se construye). Los modelos de dbt en `models/` sí se leen
+> en vivo (están montados como volumen), así que editarlos tampoco requiere
+> `--build`, solo volver a correr `dbt run`.
 
 ## API utilizada
 

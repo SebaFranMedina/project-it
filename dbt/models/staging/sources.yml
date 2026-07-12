@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: standings
+        description: "Tabla cruda cargada por el servicio 'src', directo desde la API de fútbol."

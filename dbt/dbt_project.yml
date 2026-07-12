@@ -1,0 +1,19 @@
+name: 'playground'
+version: '1.0.0'
+config-version: 2
+
+# Tiene que coincidir con el nombre del "profile" definido en profiles.yml
+profile: 'playground'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  playground:
+    staging:
+      +materialized: view      # las vistas de staging no duplican datos, son "livianas"
+    marts:
+      +materialized: table     # los marts sí se guardan como tabla física (se consultan más seguido)
