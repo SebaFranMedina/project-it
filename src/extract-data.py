@@ -27,9 +27,9 @@ API_URL = "https://v3.football.api-sports.io/standings"
 PG_CONFIG = {
     "host": "localhost",     
     "port": 5432,
-    "dbname": "wc_standings",
-    "user": "db_user",
-    "password": "db_password",
+    "dbname": os.getenv("POSTGRES_DB"),
+    "user": os.getenv("POSTGRES_USER"),
+    "password": os.getenv("POSTGRES_PASSWORD"),
 }
 
 
