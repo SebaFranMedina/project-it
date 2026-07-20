@@ -9,3 +9,6 @@ COPY extract-data.py .
  
 CMD ["python", "extract-data.py"]
  
+
+## Si quiero correrlo manualmente dentro del contenedor, puedo hacerlo con el siguiente comando:
+## docker compose run --rm --entrypoint bash src
