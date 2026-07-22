@@ -17,7 +17,7 @@ docker cp "/ruta/a/tu/carpeta/dvdrental" postgres_container:/tmp/dvdrental_resto
 
 **Ejemplo real:**
 ```bash
-docker cp "/Users/mauroperez/Desktop/***/dvdrental" postgres_container:/tmp/dvdrental_restore
+docker cp "/Users/mauroperez/Desktop/***"/dvdrental" postgres_container:/tmp/dvdrental_restore
 ```
 
 ---
