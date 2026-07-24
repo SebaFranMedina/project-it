@@ -25,7 +25,7 @@ API_URL = "https://v3.football.api-sports.io/standings"
 
 # Mismos datos que en tu docker-compose.yml
 PG_CONFIG = {
-    "host": "localhost",     
+    "host": "localhost",
     "port": 5432,
     "dbname": os.getenv("POSTGRES_DB"),
     "user": os.getenv("POSTGRES_USER"),
