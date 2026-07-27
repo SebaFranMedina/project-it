@@ -45,7 +45,7 @@ Deberías ver `toc.dat`, varios archivos `NNNN.dat` y `restore.sql`.
 ## 4. Crear la base de datos destino
 
 ```bash
-psql -U postgres -c "CREATE DATABASE dvdrental;"
+psql -U postgres -d  -c "CREATE DATABASE dvdrental;"
 ```
 
 > Si ya la habías creado antes desde DBeaver, este comando va a tirar un error de "already exists" — no pasa nada, es esperable.
