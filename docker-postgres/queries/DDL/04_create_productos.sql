@@ -1,0 +1,7 @@
+-- Crear tabla Productos
+CREATE TABLE IF NOT EXISTS Productos (
+    ID_PRODUCTO INTEGER PRIMARY KEY,
+    Concepto VARCHAR(500) NOT NULL,
+    Tipo VARCHAR(100),
+    Precio NUMERIC(15,2) NOT NULL
+);
