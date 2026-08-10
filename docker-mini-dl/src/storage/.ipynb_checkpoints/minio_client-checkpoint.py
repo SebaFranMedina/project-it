@@ -2,6 +2,7 @@ from minio import Minio
 from pathlib import Path
 from io import BytesIO
 import pandas as pd
+import json
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -53,3 +54,44 @@ def read_csv(bucket_name: str, object_name: str):
     finally:
         response.close()
         response.release_conn()
+
+def upload_bytes(
+    bucket_name: str,
+    object_name: str,
+    data: bytes,
+    content_type: str
+):
+    client = get_client()
+
+    client.put_object(
+        bucket_name=bucket_name,
+        object_name=object_name,
+        data=BytesIO(data),
+        length=len(data),
+        content_type=content_type
+    )
+
+    print(
+        f"Archivo '{object_name}' "
+        f"subido correctamente al bucket '{bucket_name}'."
+    )
+
+def upload_json(
+    bucket_name: str,
+    object_name: str,
+    data: dict
+):
+    client = get_client()
+
+    json_data = json.dumps(
+        data,
+        ensure_ascii=False
+    ).encode("utf-8")
+
+    client.put_object(
+        bucket_name=bucket_name,
+        object_name=object_name,
+        data=BytesIO(json_data),
+        length=len(json_data),
+        content_type="application/json"
+    )
