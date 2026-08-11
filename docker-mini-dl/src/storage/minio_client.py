@@ -95,3 +95,42 @@ def upload_json(
         length=len(json_data),
         content_type="application/json"
     )
+
+def read_parquet(bucket_name: str, object_name: str):
+
+    client = get_client()
+
+    response = client.get_object(
+        bucket_name=bucket_name,
+        object_name=object_name
+    )
+
+    try:
+        data = response.read()
+
+        df = pd.read_parquet(BytesIO(data))
+
+        return df
+
+    finally:
+        response.close()
+        response.release_conn()
+
+
+def read_json(bucket_name: str, object_name: str):
+
+    client = get_client()
+
+    response = client.get_object(
+        bucket_name=bucket_name,
+        object_name=object_name
+    )
+
+    try:
+        data = response.read()
+
+        return json.loads(data.decode("utf-8"))
+
+    finally:
+        response.close()
+        response.release_conn()
