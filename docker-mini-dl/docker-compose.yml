@@ -52,9 +52,11 @@ services:
       - postgres
 
   jupyter:
-    image: jupyter/datascience-notebook:latest
-    container_name: jupyter
+    build:
+      context: .
+      dockerfile: Dockerfile
 
+    container_name: jupyter
     restart: unless-stopped
 
     ports:
@@ -64,7 +66,9 @@ services:
       JUPYTER_TOKEN: profesor
 
     volumes:
-      - .:/home/jovyan/work
+      - ./notebooks:/home/jovyan/work/notebooks
+      - ./src:/home/jovyan/work/src
+      - ./datasets:/home/jovyan/work/datasets
 
     working_dir: /home/jovyan/work
     depends_on:
