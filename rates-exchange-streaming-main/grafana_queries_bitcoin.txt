@@ -1,0 +1,83 @@
+GRAFANA - QUERIES DASHBOARD BITCOIN
+===================================
+
+1. PRECIO ACTUAL BINANCE (STAT)
+------------------------------
+SELECT
+  (data->'binancep2p'->>'ask')::numeric AS price
+FROM bitcoin
+ORDER BY created_at DESC
+LIMIT 1;
+
+
+2. PRECIO ACTUAL RIPIO (STAT)
+----------------------------
+SELECT
+  (data->'ripio'->>'ask')::numeric AS price
+FROM bitcoin
+ORDER BY created_at DESC
+LIMIT 1;
+
+
+3. COMPARATIVA DE EXCHANGES (TIME SERIES)
+-----------------------------------------
+SELECT
+  created_at AS time,
+  (data->'binancep2p'->>'ask')::numeric AS binance,
+  (data->'ripio'->>'ask')::numeric AS ripio,
+  (data->'fiwind'->>'ask')::numeric AS fiwind,
+  (data->'letsbit'->>'ask')::numeric AS letsbit
+FROM bitcoin
+ORDER BY created_at;
+
+
+4. SPREAD BINANCE (TIME SERIES)
+-------------------------------
+SELECT
+  created_at AS time,
+  (data->'binancep2p'->>'ask')::numeric -
+  (data->'binancep2p'->>'bid')::numeric AS spread
+FROM bitcoin
+ORDER BY created_at;
+
+
+5. PRECIO PROMEDIO DEL MERCADO
+------------------------------
+SELECT
+  created_at AS time,
+  (
+    (data->'binancep2p'->>'ask')::numeric +
+    (data->'ripio'->>'ask')::numeric +
+    (data->'fiwind'->>'ask')::numeric
+  ) / 3 AS avg_price
+FROM bitcoin
+ORDER BY created_at;
+
+
+6. ARBITRAJE ENTRE BINANCE Y RIPIO
+----------------------------------
+SELECT
+  created_at AS time,
+  GREATEST(
+    (data->'binancep2p'->>'ask')::numeric,
+    (data->'ripio'->>'ask')::numeric
+  )
+  -
+  LEAST(
+    (data->'binancep2p'->>'ask')::numeric,
+    (data->'ripio'->>'ask')::numeric
+  ) AS arbitrage
+FROM bitcoin;
+
+
+7. VOLATILIDAD POR HORA
+-----------------------
+SELECT
+  date_trunc('hour', created_at) AS time,
+  MAX((data->'binancep2p'->>'ask')::numeric)
+  -
+  MIN((data->'binancep2p'->>'ask')::numeric)
+  AS volatility
+FROM bitcoin
+GROUP BY 1
+ORDER BY 1;
